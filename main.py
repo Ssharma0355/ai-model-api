@@ -19,3 +19,14 @@ def about():
 @app.get("/showData")
 def showData():
     return load_data()
+
+@app.get("/patient/{patient_id}")
+def patient_detail(patient_id: str):
+    # 1st we will load the data 
+    data = load_data()
+    #then we check that if patient id is inside the load data or not
+    if patient_id in data:
+        #if data found the we will return with specific data id
+        return data[patient_id]
+    #if not found then we will give a error message
+    return {"message":"Patinet not found"}
