@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Path, HTTPException
+from fastapi import FastAPI, Path, HTTPException, Query
 import json
 app = FastAPI()
 
@@ -34,3 +34,19 @@ def patient_detail(patient_id: str = Path(..., description="ID is P001 type", ex
     
     # instead of message we will raise and change the status code and give the description 
     raise HTTPException(status_code=404, detail="Patinet not found!")
+
+
+@app.get("/sort")
+def sort_patient(sort_by: str = Query(...,description="Sort patient by height and BMI"),order: str =Query('asc', description="sort in ascending and decending")):
+    valid_feilds = ["height","weight","bmi"]
+    if sort_by not in valid_feilds:
+        raise HTTPException(status_code=400, detail="Invalid Feild {valid_feilds}")
+    
+    if order not in ["asc", "desc"]:
+        raise HTTPException(status_code=400, detail="Invalid order")
+    
+    data = load_data()
+    sort_order = True if order =="desc" else True
+
+    sorted_data = sorted(data.values(), key=lambda x: x.get(sort_by,0), reverse=sort_order )
+    return sorted_data
