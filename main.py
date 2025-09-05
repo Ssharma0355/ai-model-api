@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Path
+from fastapi import FastAPI, Path, HTTPException
 import json
 app = FastAPI()
 
@@ -30,4 +30,7 @@ def patient_detail(patient_id: str = Path(..., description="ID is P001 type", ex
         #if data found the we will return with specific data id
         return data[patient_id]
     #if not found then we will give a error message
-    return {"message":"Patinet not found"}
+    # return {"message":"Patinet not found"}
+    
+    # instead of message we will raise and change the status code and give the description 
+    raise HTTPException(status_code=404, detail="Patinet not found!")
