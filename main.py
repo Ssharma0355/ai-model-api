@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Path
 import json
 app = FastAPI()
 
@@ -21,7 +21,8 @@ def showData():
     return load_data()
 
 @app.get("/patient/{patient_id}")
-def patient_detail(patient_id: str):
+# Path can added for validations and message to the end point
+def patient_detail(patient_id: str = Path(..., description="ID is P001 type", example="P001")):
     # 1st we will load the data 
     data = load_data()
     #then we check that if patient id is inside the load data or not
