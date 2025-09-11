@@ -7,10 +7,10 @@ def load_data():
        data = json.load(f)
 
     return data
+
 def load_userData():
     with open('users.json','r') as f:
         users_data = json.load(f)
-
     return users_data
         
 @app.get("/")
@@ -24,6 +24,18 @@ def about():
 @app.get("/showData")
 def showData():
     return load_data()
+
+@app.get("/users")
+def get_users():
+    return load_userData()
+
+@app.get("/users/{user_id}")
+def users_details(user_id: str = Path(..., description="ID of the u1", example="u1")):
+    data = load_userData()
+    if user_id in data:
+        return data[user_id]
+    
+    raise HTTPException(status_code=404, detail="User not found")
 
 @app.get("/patient/{patient_id}")
 # Path can added for validations and message to the end point
@@ -40,9 +52,7 @@ def patient_detail(patient_id: str = Path(..., description="ID is P001 type", ex
     # instead of message we will raise and change the status code and give the description 
     raise HTTPException(status_code=404, detail="Patinet not found!")
 
-@app.get("/users")
-def get_users():
-    return load_userData()
+
 
 @app.get("/sort")
 def sort_patient(sort_by: str = Query(...,description="Sort patient by height and BMI"),order: str =Query('asc', description="sort in ascending and decending")):
