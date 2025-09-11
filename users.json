@@ -1,0 +1,22 @@
+{
+    "u1":{
+        "name":"Sachin Sharma",
+        "Course":"B.Tech",
+        "Subject":"Computer Science and Engineering"
+    },
+      "u2":{
+        "name":"Raj Sharma",
+        "Course":"B.Tech",
+        "Subject":"Electronic Science and Engineering"
+    },
+      "u3":{
+        "name":"Sachin Sharma",
+        "Course":"B.Com",
+        "Subject":"Computer Science and Engineering"
+    },
+      "u4":{
+        "name":"Sachin Sharma",
+        "Course":"B.Tech",
+        "Subject":"Computer Science and Engineering"
+    }
+}
