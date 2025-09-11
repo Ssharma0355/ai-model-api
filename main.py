@@ -7,7 +7,12 @@ def load_data():
        data = json.load(f)
 
     return data
+def load_userData():
+    with open('users.json','r') as f:
+        users_data = json.load(f)
 
+    return users_data
+        
 @app.get("/")
 def home():
     return {"message":"This is my 1st fastapi"}
@@ -35,6 +40,9 @@ def patient_detail(patient_id: str = Path(..., description="ID is P001 type", ex
     # instead of message we will raise and change the status code and give the description 
     raise HTTPException(status_code=404, detail="Patinet not found!")
 
+@app.get("/users")
+def get_users():
+    return load_userData()
 
 @app.get("/sort")
 def sort_patient(sort_by: str = Query(...,description="Sort patient by height and BMI"),order: str =Query('asc', description="sort in ascending and decending")):
