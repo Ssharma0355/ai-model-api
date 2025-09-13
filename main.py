@@ -28,6 +28,7 @@ def showData():
 @app.get("/users")
 def get_users():
     return load_userData()
+    # return load_userData()
 
 @app.get("/users/{user_id}")
 def users_details(user_id: str = Path(..., description="ID of the u1", example="u1")):
