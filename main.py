@@ -35,6 +35,7 @@ def users_details(user_id: str = Path(..., description="ID of the u1", example="
     data = load_userData()
     if user_id in data:
         return data[user_id]
+        # return data[user_id]
     
     raise HTTPException(status_code=404, detail="User not found")
 
